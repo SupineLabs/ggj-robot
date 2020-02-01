@@ -1,7 +1,19 @@
 fileFormatVersion: 2
 guid: f6d8ef4e1a0d2584aba5fd35345edbec
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7450072043188676164
+    second: spritesheet - robo plain walk1 (1500px sqrs)_0
+  - first:
+      213: 5677997801096114914
+    second: spritesheet - robo plain walk1 (1500px sqrs)_1
+  - first:
+      213: 8178423800039831898
+    second: spritesheet - robo plain walk1 (1500px sqrs)_2
+  - first:
+      213: -653248189460152510
+    second: spritesheet - robo plain walk1 (1500px sqrs)_3
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
