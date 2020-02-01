@@ -29,7 +29,11 @@ public class Movement : MonoBehaviour
     private bool _onWallLeft;
     [SerializeField]
     private bool _canWallJump;
+    [SerializeField]
+    private bool _invertedControls;
     private Rigidbody2D _rb;
+
+    public bool InvertedControls { get => _invertedControls; set => _invertedControls = value; }
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +45,11 @@ public class Movement : MonoBehaviour
     void Update()
     {
         float moveHor = Input.GetAxis("Horizontal");
+
+        if (_invertedControls)
+        {
+            moveHor = -moveHor;
+        }
 
         if ((_rb.velocity.x < _maxSpeed && _rb.velocity.x > -_maxSpeed))
         {
