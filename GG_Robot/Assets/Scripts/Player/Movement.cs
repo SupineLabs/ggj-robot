@@ -26,9 +26,7 @@ public class Movement : MonoBehaviour
     private bool _doubleJumpUsed = false;
     [SerializeField]
     private bool _onWall;
-    [SerializeField]
     private bool _onWallRight;
-    [SerializeField]
     private bool _onWallLeft;
     [SerializeField]
     private bool _canWallJump;
@@ -111,11 +109,13 @@ public class Movement : MonoBehaviour
                     {
                         _playerAnimations.SetBool("WallJump", true);
                         _rb.AddForce(new Vector2(0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
+                        _onWall = false;
                     }
                     else
                     {
                         _playerAnimations.SetBool("WallJump", true);
                         _rb.AddForce(new Vector2(-0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
+                        _onWall = false;
                     }
                 }
                 else
@@ -129,11 +129,6 @@ public class Movement : MonoBehaviour
             _playerAnimations.SetBool("DoubleJump", false);
             _playerAnimations.SetBool("Jump", false);
             _playerAnimations.SetBool("WallJump", false);
-        }
-
-        if (_grounded && !_onWall)
-        {
-            _doubleJumpUsed = false;
         }
     }
 
@@ -189,18 +184,18 @@ public class Movement : MonoBehaviour
         #endregion
 
         #region Wall Check
-        hit = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.right, 5);
-        RaycastHit2D hitHigh = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, _bodySize, 0), -Vector2.right, 5);
+        hit = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.right, 5, nonItemLayers);
+        RaycastHit2D hitHigh = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, _bodySize, 0), -Vector2.right, 5, nonItemLayers);
 
 
-        hit2 = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), Vector2.right, 5);
-        RaycastHit2D hit2High = Physics2D.Raycast(transform.position + new Vector3(_bodySize, _bodySize, 0), Vector2.right, 5);
+        hit2 = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), Vector2.right, 5, nonItemLayers);
+        RaycastHit2D hit2High = Physics2D.Raycast(transform.position + new Vector3(_bodySize, _bodySize, 0), Vector2.right, 5, nonItemLayers);
 
         if (hit.collider != null)
         {
             float distance = Mathf.Abs(hit.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f)
+            if (distance < 0.02f)
             {
                 _onWallRight = true;
             }
@@ -213,7 +208,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hitHigh.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f)
+            if (distance < 0.02f)
             {
                 _onWallRight = true;
             }
@@ -231,7 +226,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f)
+            if (distance < 0.02f)
             {
                 _onWallLeft = true;
             }
@@ -244,7 +239,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2High.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f)
+            if (distance < 0.02f)
             {
                 _onWallLeft = true;
             }
@@ -261,6 +256,7 @@ public class Movement : MonoBehaviour
         if ((_onWallLeft || _onWallRight) && !_grounded)
         {
             _onWall = true;
+            _doubleJumpUsed = true;
         }
         else
         {
@@ -276,6 +272,11 @@ public class Movement : MonoBehaviour
             _rb.gravityScale = 7f;
         }
         #endregion
+        
+        if (_grounded && !_onWall)
+        {
+            _doubleJumpUsed = false;
+        }
 
         float moveHor = Input.GetAxis("Horizontal");
 

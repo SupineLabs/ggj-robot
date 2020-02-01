@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 274856529}
   - component: {fileID: 274856528}
   - component: {fileID: 274856527}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ GameObject:
   - component: {fileID: 380229697}
   - component: {fileID: 380229696}
   - component: {fileID: 380229695}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -345,7 +345,7 @@ GameObject:
   - component: {fileID: 505896949}
   - component: {fileID: 505896948}
   - component: {fileID: 505896947}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -439,31 +439,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!1 &737316349 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2922724729110296635, guid: 03395409b885ece4ab9ba0a458d5a442,
-    type: 3}
-  m_PrefabInstance: {fileID: 2922724727505018703}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &737316350
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 737316349}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &906094164
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +451,7 @@ GameObject:
   - component: {fileID: 906094167}
   - component: {fileID: 906094166}
   - component: {fileID: 906094165}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -752,9 +727,9 @@ GameObject:
   - component: {fileID: 1771710176}
   - component: {fileID: 1771710175}
   - component: {fileID: 1771710174}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -853,21 +828,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2922724729110296630, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: _acceleration
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296630, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: _canDoubleJump
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296630, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: _bodySize
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2922724729110296631, guid: 03395409b885ece4ab9ba0a458d5a442,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -922,42 +882,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296632, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1140014756094216273, guid: 8e9051888073ccb429809c516e69d721,
-        type: 3}
-    - target: {fileID: 2922724729110296632, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296633, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296633, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: m_SpriteTilingProperty.oldSize.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296633, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1.5602909
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296633, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 1.67
-      objectReference: {fileID: 0}
-    - target: {fileID: 2922724729110296633, guid: 03395409b885ece4ab9ba0a458d5a442,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: -0.0060884356
       objectReference: {fileID: 0}
     - target: {fileID: 2922724729110296635, guid: 03395409b885ece4ab9ba0a458d5a442,
         type: 3}
