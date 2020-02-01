@@ -9,10 +9,16 @@ public class PickupUpgrade : MonoBehaviour
 
     public bool UpgradesLegs = false;
 
-    public ArrayList upgrades;
+    public ArrayList upgrades = new ArrayList();
 
     public PickupUpgrade()
     {
+        //if (UpgradesLegs) upgrades.Add(new LegsUpgrade());
+    }
+
+    private void Start()
+    {
+
         if (UpgradesLegs) upgrades.Add(new LegsUpgrade());
     }
 
@@ -29,5 +35,10 @@ public class PickupUpgrade : MonoBehaviour
         {
             upgrade.RevertAlterations(player);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        Debug.Log("pickup collided");
     }
 }
