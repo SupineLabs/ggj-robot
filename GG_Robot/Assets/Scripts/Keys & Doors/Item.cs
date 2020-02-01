@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Key : MonoBehaviour
+public class Item : MonoBehaviour
 {
     public GameObject player;
 
-    // Line drawing.
-    private LineRenderer lineRend;
-    private Vector2 l_start;
-    private Vector2 l_end;
-
-
-    // Player position, my position, ideal next position,.
+    // Player position, my position, ideal next position.
     private Vector3 p_pos;
     private Vector3 pos;
     private Vector3 i_pos;
@@ -24,6 +18,7 @@ public class Key : MonoBehaviour
     private float left = 0.5f;
 
     // Other.
+    public bool isUpgrade;
     public bool isPickedUp = false;
     public bool isUsed = false;
     public float speed = 0.1f;
@@ -45,10 +40,6 @@ public class Key : MonoBehaviour
         {
             x_off = right;
         }
-        //else if (x is 0)
-        //{
-        //    
-        //}
         else if (x > 0)
         {
             x_off = left;

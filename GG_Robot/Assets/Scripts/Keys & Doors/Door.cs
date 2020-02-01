@@ -19,8 +19,7 @@ public class Door : MonoBehaviour
     {
         if (isOpen)
         {
-            doorSprite.enabled = false;
-            barrier.enabled = false;
+            Destroy(gameObject);
         }
     }
 }
