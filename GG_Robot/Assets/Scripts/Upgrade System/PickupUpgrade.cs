@@ -36,9 +36,4 @@ public class PickupUpgrade : MonoBehaviour
             upgrade.RevertAlterations(player);
         }
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("pickup collided");
-    }
 }

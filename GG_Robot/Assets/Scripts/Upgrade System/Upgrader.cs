@@ -17,13 +17,6 @@ public class Upgrader : MonoBehaviour
         
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("player collided with pickup");
-        PickupUpgrade pickup = collision.gameObject.GetComponent<PickupUpgrade>();
-        pickup.ApplyAllUpgrades(this.gameObject); // attached to player
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("player trigger with pickup");
