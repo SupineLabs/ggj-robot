@@ -198,7 +198,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f && hit.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallRight = true;
             }
@@ -211,7 +211,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hitHigh.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f && hitHigh.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallRight = true;
             }
@@ -229,7 +229,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f && hit2.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallLeft = true;
             }
@@ -242,7 +242,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2High.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.04f && hit2High.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallLeft = true;
             }
