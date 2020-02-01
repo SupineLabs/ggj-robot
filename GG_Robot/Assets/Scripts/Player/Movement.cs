@@ -16,7 +16,7 @@ public class Movement : MonoBehaviour
     private bool _grounded = false;
     private bool _groundedRight = false;
     private bool _groundedLeft = false;
-    [SerializeField]
+    [SerializeField, Range(0,4f)]
     private float _bodySize;
     [SerializeField]
     private bool _canJump;
@@ -151,7 +151,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit.point.y - transform.position.y) - _bodySize;
 
-            if (distance < 0.02f && hit.collider.tag == "Ground")
+            if (distance < 0.1f && hit.collider.tag == "Ground")
             {
                 _groundedRight = true;
             }
@@ -168,7 +168,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2.point.y - transform.position.y) - _bodySize;
 
-            if (distance < 0.02f && hit2.collider.tag == "Ground")
+            if (distance < 0.1f && hit2.collider.tag == "Ground")
             {
                 _groundedLeft = true;
             }
