@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Item_And_Door_Interactions : MonoBehaviour
 {
+    public static float jumpModifier = 10f;
+    public static float speedModifier = 10f;
+
     public Item item;
+
     private int itemLayer = 10;
     private int playerLayer = 8;
 
