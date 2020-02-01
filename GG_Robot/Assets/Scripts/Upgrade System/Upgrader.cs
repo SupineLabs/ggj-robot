@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Upgrader : MonoBehaviour
 {
+    // Player upgrader, handles collisions & triggers picked up upgrade items to alter the game
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,11 +19,10 @@ public class Upgrader : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        Debug.Log("player collided with pickup");
+        PickupUpgrade pickup = collision.gameObject.GetComponent<PickupUpgrade>();
+        pickup.ApplyAllUpgrades(this.gameObject); // attached to player
     }
 
-    private void UseItem(UpgradeItem item) {
-        item.ApplyAlterations(this.gameObject);
-    }
     
 }
