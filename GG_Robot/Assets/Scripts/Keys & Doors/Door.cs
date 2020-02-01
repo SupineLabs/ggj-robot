@@ -19,7 +19,7 @@ public class Door : MonoBehaviour
     {
         if (isOpen)
         {
-            doorSprite.sprite = openSprite;
+            doorSprite.enabled = false;
             barrier.enabled = false;
         }
     }
