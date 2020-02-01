@@ -130,6 +130,15 @@ public class Movement : MonoBehaviour
             _playerAnimations.SetBool("Jump", false);
             _playerAnimations.SetBool("WallJump", false);
         }
+
+        if (!_grounded)
+        {
+            _playerAnimations.SetBool("Jump", true);
+        }
+        else
+        {
+            _playerAnimations.SetBool("Jump", false);
+        }
     }
 
     private void FixedUpdate()
@@ -299,7 +308,14 @@ public class Movement : MonoBehaviour
             if (((_onWallRight && moveHor > 0) || (_onWallLeft && moveHor < 0) || !_onWall))
             {
                 _rb.AddForce(Vector2.right * moveHor * _acceleration, ForceMode2D.Impulse);
-                _playerAnimations.SetBool("Walking", true);
+                if(moveHor > 0.01f || moveHor < -0.01f)
+                {
+                    _playerAnimations.SetBool("Walking", true);
+                }
+                else
+                {
+                    _playerAnimations.SetBool("Walking", false);
+                }
             }
             else
             {
