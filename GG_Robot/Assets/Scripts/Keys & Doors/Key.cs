@@ -19,12 +19,13 @@ public class Key : MonoBehaviour
 
     // Offsets to get ideal position.
     private float x_off = 0.5f;
-    private float y_off = 0.5f;
+    private float y_off = 0f;
     private float right = -0.5f;
     private float left = 0.5f;
 
     // Other.
-    private bool isPickedUp = false;
+    public bool isPickedUp = false;
+    public bool isUsed = false;
     public float speed = 0.1f;
 
     // Update is called once per frame.
@@ -58,13 +59,10 @@ public class Key : MonoBehaviour
             // Move towards players positions.
             transform.position = Vector3.Lerp(pos, i_pos, speed);
         }
-    }
 
-    void OnCollisionEnter2D(Collision2D col)
-    {
-        if (col.gameObject.name == "Key") {
-
-            isPickedUp = true;
+        if (isUsed)
+        {
+            Destroy(gameObject);
         }
     }
 }
