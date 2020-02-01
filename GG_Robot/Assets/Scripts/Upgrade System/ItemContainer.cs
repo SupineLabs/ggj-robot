@@ -5,7 +5,7 @@ using UnityEngine;
 public class ItemContainer : MonoBehaviour
 {
 
-    public Upgrade item;
+    //public Upgrade item;
 
     // Start is called before the first frame update
     void Start()
