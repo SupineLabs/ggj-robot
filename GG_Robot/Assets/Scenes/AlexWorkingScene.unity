@@ -1425,6 +1425,7 @@ MonoBehaviour:
   _canDoubleJump: 1
   _onWall: 0
   _canWallJump: 1
+  _invertedControls: 0
 --- !u!50 &645674653
 Rigidbody2D:
   serializedVersion: 4
@@ -3855,7 +3856,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1481558125
 Transform:
   m_ObjectHideFlags: 0
@@ -4290,6 +4291,7 @@ MonoBehaviour:
   _canDoubleJump: 0
   _onWall: 0
   _canWallJump: 1
+  _invertedControls: 0
 --- !u!1 &1840058438
 GameObject:
   m_ObjectHideFlags: 0
