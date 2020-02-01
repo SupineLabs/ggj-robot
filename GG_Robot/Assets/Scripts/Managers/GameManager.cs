@@ -28,6 +28,6 @@ public class GameManager : MonoBehaviour
     public void ResetPlayer()
     {
         Stats.Instance.gameObject.transform.position = _spawnLocation;
-        Camera.main.transform.position = _spawnLocation;
+        Camera.main.transform.position = new Vector3(_spawnLocation.x, _spawnLocation.y, -10);
     }
 }
