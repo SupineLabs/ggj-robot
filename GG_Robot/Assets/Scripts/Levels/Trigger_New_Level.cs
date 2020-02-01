@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Trigger_New_Level : MonoBehaviour
 {
-    public GameObject nextLevel;
-    public GameObject nextLevelCameraPosition;
+    public GameObject nextLevelPlayerPos;
     public GameObject player;
-    public GameObject cam;
+
+    public GameObject currentLevel;
+    public GameObject nextLevel;
+
+    //public GameObject nextLevelCameraPosition;
+    //public GameObject mainCamera;
 
     //private bool moveCam = false;
 
@@ -25,11 +29,13 @@ public class Trigger_New_Level : MonoBehaviour
     //    }
     //}
 
-    private void OnTriggerEnter(Collider collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.name == "Player")
         {
-            player.transform.position = nextLevel.transform.position;
+            nextLevel.SetActive(true);
+            currentLevel.SetActive(false);
+            player.transform.position = nextLevelPlayerPos.transform.position;
             //moveCam = true;
         }
     }
