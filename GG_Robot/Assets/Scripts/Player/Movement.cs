@@ -22,6 +22,7 @@ public class Movement : MonoBehaviour
     private bool _canJump;
     [SerializeField]
     private bool _canDoubleJump;
+    [SerializeField]
     private bool _doubleJumpUsed = false;
     [SerializeField]
     private bool _onWall;
@@ -32,6 +33,14 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private bool _invertedControls;
     private Rigidbody2D _rb;
+    private Animator _playerAnimations;
+    private SpriteRenderer _playerSprite;
+
+    private bool _movingRight;
+    private bool _movingLeft;
+    private bool _jump;
+    private bool _doubleJump;
+    private bool _wallJump;
 
     public bool InvertedControls { get => _invertedControls; set => _invertedControls = value; }
 
@@ -39,30 +48,13 @@ public class Movement : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _playerAnimations = GetComponent<Animator>();
+        _playerSprite = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        float moveHor = Input.GetAxis("Horizontal");
-
-        if (_invertedControls)
-        {
-            moveHor = -moveHor;
-        }
-
-        if ((_rb.velocity.x < _maxSpeed && _rb.velocity.x > -_maxSpeed))
-        {
-            if (((_onWallRight && moveHor > 0) || (_onWallLeft && moveHor < 0) || !_onWall))
-            {
-                _rb.AddForce(Vector2.right * moveHor * _acceleration, ForceMode2D.Impulse);
-            }
-        }
-        if(moveHor <= 0.01f && moveHor >= -0.01f && (_rb.velocity.x > 0.4f || _rb.velocity.x < 0.4f))
-        {
-            _rb.AddForce(-new Vector2(_rb.velocity.x, 0) * _breakPower);
-        }
-
         if(Input.GetKeyDown(KeyCode.Space))
         {
             if (!_onWall)
@@ -71,7 +63,12 @@ public class Movement : MonoBehaviour
                 {
                     if (_canJump && _grounded)
                     {
-                        _rb.AddForce(Vector2.up * _jumpPower * 500);
+                        _playerAnimations.SetBool("Jump", true);
+                        _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
+                    }
+                    else
+                    {
+                        _playerAnimations.SetBool("Jump", false);
                     }
                 }
                 else
@@ -82,27 +79,55 @@ public class Movement : MonoBehaviour
                         {
                             _doubleJumpUsed = true;
                         }
-                        _rb.AddForce(Vector2.up * _jumpPower * 500);
+                        if (_doubleJumpUsed)
+                        {
+                            _playerAnimations.SetBool("DoubleJump", true);
+                        }
+                        else
+                        {
+                            _playerAnimations.SetBool("Jump", true);
+                        }
+                        _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
+
+                    }
+                    else
+                    {
+                        _playerAnimations.SetBool("DoubleJump", false);
+                        _playerAnimations.SetBool("Jump", false);
                     }
                 }
             }
             else
             {
+                _playerAnimations.SetBool("DoubleJump", false);
+                _playerAnimations.SetBool("Jump", false);
                 if (_canWallJump)
                 {
                     if (_onWallRight)
                     {
-                        _rb.AddForce(new Vector2(0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 500);
+                        _playerAnimations.SetBool("WallJump", true);
+                        _rb.AddForce(new Vector2(0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
                     }
                     else
                     {
-                        _rb.AddForce(new Vector2(-0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 500);
+                        _playerAnimations.SetBool("WallJump", true);
+                        _rb.AddForce(new Vector2(-0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
                     }
+                }
+                else
+                {
+                    _playerAnimations.SetBool("WallJump", false);
                 }
             }
         }
+        else
+        {
+            _playerAnimations.SetBool("DoubleJump", false);
+            _playerAnimations.SetBool("Jump", false);
+            _playerAnimations.SetBool("WallJump", false);
+        }
 
-        if (_grounded)
+        if (_grounded && !_onWall)
         {
             _doubleJumpUsed = false;
         }
@@ -115,7 +140,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit.point.y - transform.position.y) - _bodySize;
 
-            if (distance < 0.02f)
+            if (distance < 0.02f && hit.collider.tag == "Ground")
             {
                 _groundedRight = true;
             }
@@ -132,7 +157,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2.point.y - transform.position.y) - _bodySize;
 
-            if (distance < 0.02f)
+            if (distance < 0.02f && hit2.collider.tag == "Ground")
             {
                 _groundedLeft = true;
             }
@@ -168,7 +193,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f)
+            if (distance < 0.02f && hit.collider.tag == "Wall")
             {
                 _onWallRight = true;
             }
@@ -181,7 +206,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hitHigh.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f)
+            if (distance < 0.02f && hitHigh.collider.tag == "Wall")
             {
                 _onWallRight = true;
             }
@@ -199,7 +224,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f)
+            if (distance < 0.02f && hit2.collider.tag == "Wall")
             {
                 _onWallLeft = true;
             }
@@ -212,7 +237,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2High.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f)
+            if (distance < 0.02f && hit2High.collider.tag == "Wall")
             {
                 _onWallLeft = true;
             }
@@ -244,5 +269,41 @@ public class Movement : MonoBehaviour
             _rb.gravityScale = 7;
         }
         #endregion
+    }
+
+    private void FixedUpdate()
+    {
+        float moveHor = Input.GetAxis("Horizontal");
+
+        if (_invertedControls)
+        {
+            moveHor = -moveHor;
+        }
+
+        if (moveHor < 0)
+        {
+            _playerSprite.flipX = true;
+        }
+        else
+        {
+            _playerSprite.flipX = false;
+        }
+
+        if ((_rb.velocity.x < _maxSpeed && _rb.velocity.x > -_maxSpeed))
+        {
+            if (((_onWallRight && moveHor > 0) || (_onWallLeft && moveHor < 0) || !_onWall))
+            {
+                _rb.AddForce(Vector2.right * moveHor * _acceleration, ForceMode2D.Impulse);
+                _playerAnimations.SetBool("Walking", true);
+            }
+            else
+            {
+                _playerAnimations.SetBool("Walking", false);
+            }
+        }
+        if (moveHor <= 0.01f && moveHor >= -0.01f && (_rb.velocity.x > 0.4f || _rb.velocity.x < 0.4f))
+        {
+            _rb.AddForce(-new Vector2(_rb.velocity.x, 0) * _breakPower);
+        }
     }
 }
