@@ -10,4 +10,10 @@ public class LegsUpgrade : UpgradeItem
         // player.movementSpeed = 2;
 
     }
+    public override void RevertAlterations(GameObject player)
+    {
+        Debug.Log("beep boop you broke your legs off");
+        // player.movementSpeed = 1;
+
+    }
 }

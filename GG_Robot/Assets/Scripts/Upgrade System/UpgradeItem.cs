@@ -5,4 +5,5 @@ using UnityEngine;
 public abstract class UpgradeItem
 {
     public abstract void ApplyAlterations(GameObject player);
+    public abstract void RevertAlterations(GameObject player);
 }
