@@ -14,6 +14,84 @@ TextureImporter:
   - first:
       213: -1140014756094216273
     second: robo walk brok anten ss_3
+  - first:
+      213: 1712000418932455810
+    second: robo walk brok anten ss_0
+  - first:
+      213: -7221432359961621631
+    second: robo walk brok anten ss_1
+  - first:
+      213: 8220661107280362411
+    second: robo walk brok anten ss_2
+  - first:
+      213: -2049675379701112703
+    second: robo walk brok anten ss_3
+  - first:
+      213: -4887022283662111578
+    second: robo walk brok anten ss_4
+  - first:
+      213: -2259367017069581613
+    second: robo walk brok anten ss_5
+  - first:
+      213: 6256031854654421807
+    second: robo walk brok anten ss_6
+  - first:
+      213: 952361807815702442
+    second: robo walk brok anten ss_7
+  - first:
+      213: 7679130523236337705
+    second: robo walk brok anten ss_8
+  - first:
+      213: 3494615847239338710
+    second: robo walk brok anten ss_9
+  - first:
+      213: -3715408738966976004
+    second: robo walk brok anten ss_10
+  - first:
+      213: 5363241645728604545
+    second: robo walk brok anten ss_11
+  - first:
+      213: -2638836199642387508
+    second: robo walk brok anten ss_12
+  - first:
+      213: -1270323197193070241
+    second: robo walk brok anten ss_13
+  - first:
+      213: -6014356268024400705
+    second: robo walk brok anten ss_14
+  - first:
+      213: -161500847055745162
+    second: robo walk brok anten ss_15
+  - first:
+      213: 1864339969311849265
+    second: robo walk brok anten ss_16
+  - first:
+      213: 2146595092614692504
+    second: robo walk brok anten ss_17
+  - first:
+      213: -1558703365494572430
+    second: robo walk brok anten ss_18
+  - first:
+      213: -3780814083516419538
+    second: robo walk brok anten ss_19
+  - first:
+      213: 4763918094809645042
+    second: robo walk brok anten ss_20
+  - first:
+      213: -1141539589467373458
+    second: robo walk brok anten ss_21
+  - first:
+      213: 2868404217203920173
+    second: robo walk brok anten ss_22
+  - first:
+      213: -1374017434383626031
+    second: robo walk brok anten ss_23
+  - first:
+      213: -4915344602254048011
+    second: robo walk brok anten ss_24
+  - first:
+      213: -7763472283588576671
+    second: robo walk brok anten ss_25
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -137,19 +215,19 @@ TextureImporter:
       name: robo walk brok anten ss_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 10
+        y: 132
         width: 1500
-        height: 1500
+        height: 1363
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 53b85401872a239c0800000000000000
-      internalID: -3948915286697735371
+      spriteID: 289f9c97f4f32c710800000000000000
+      internalID: 1712000418932455810
       vertices: []
       indices: 
       edges: []
@@ -159,18 +237,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1500
-        y: 0
+        y: 135
         width: 1500
-        height: 1500
+        height: 1365
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33c9c7d1fd95ac3a0800000000000000
-      internalID: -6644399485424460749
+      spriteID: 18b0af6878158cb90800000000000000
+      internalID: -7221432359961621631
       vertices: []
       indices: 
       edges: []
@@ -179,19 +257,19 @@ TextureImporter:
       name: robo walk brok anten ss_2
       rect:
         serializedVersion: 2
-        x: 3000
-        y: 0
+        x: 3002
+        y: 135
         width: 1500
-        height: 1500
+        height: 1365
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c2d2c2ff35bbe9f0800000000000000
-      internalID: -438057252478070078
+      spriteID: babb05ed8b7a51270800000000000000
+      internalID: 8220661107280362411
       vertices: []
       indices: 
       edges: []
@@ -201,18 +279,18 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4500
-        y: 0
+        y: 135
         width: 1500
-        height: 1500
+        height: 1365
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fa7fc409e9add20f0800000000000000
-      internalID: -1140014756094216273
+      spriteID: 1802d001a171e83e0800000000000000
+      internalID: -2049675379701112703
       vertices: []
       indices: 
       edges: []
