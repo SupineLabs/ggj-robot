@@ -26,7 +26,9 @@ public class Movement : MonoBehaviour
     private bool _doubleJumpUsed = false;
     [SerializeField]
     private bool _onWall;
+    [SerializeField]
     private bool _onWallRight;
+    [SerializeField]
     private bool _onWallLeft;
     [SerializeField]
     private bool _canWallJump;
@@ -133,7 +135,10 @@ public class Movement : MonoBehaviour
         {
             _doubleJumpUsed = false;
         }
+    }
 
+    private void FixedUpdate()
+    {
         #region Ground Check
         RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), -Vector2.up, 5, nonItemLayers);
         RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.up, 5, nonItemLayers);
@@ -173,7 +178,7 @@ public class Movement : MonoBehaviour
             _groundedLeft = false;
         }
 
-        if(_groundedLeft || _groundedRight)
+        if (_groundedLeft || _groundedRight)
         {
             _grounded = true;
         }
@@ -184,18 +189,18 @@ public class Movement : MonoBehaviour
         #endregion
 
         #region Wall Check
-        hit = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), -Vector2.right, 5, nonItemLayers);
-        RaycastHit2D hitHigh = Physics2D.Raycast(transform.position + new Vector3(_bodySize, _bodySize, 0), -Vector2.right, 5, nonItemLayers);
+        hit = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.right, 5);
+        RaycastHit2D hitHigh = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, _bodySize, 0), -Vector2.right, 5);
 
 
-        hit2 = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), Vector2.right, 5, nonItemLayers);
-        RaycastHit2D hit2High = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, _bodySize, 0), Vector2.right, 5, nonItemLayers);
+        hit2 = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), Vector2.right, 5);
+        RaycastHit2D hit2High = Physics2D.Raycast(transform.position + new Vector3(_bodySize, _bodySize, 0), Vector2.right, 5);
 
         if (hit.collider != null)
         {
             float distance = Mathf.Abs(hit.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f && hit.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallRight = true;
             }
@@ -208,7 +213,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hitHigh.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f && hitHigh.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallRight = true;
             }
@@ -226,7 +231,7 @@ public class Movement : MonoBehaviour
         {
             float distance = Mathf.Abs(hit2.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f && hit2.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallLeft = true;
             }
@@ -235,11 +240,11 @@ public class Movement : MonoBehaviour
                 _onWallLeft = false;
             }
         }
-        else if (hit2High.collider != null)
+        if (hit2High.collider != null)
         {
             float distance = Mathf.Abs(hit2High.point.x - transform.position.x) - _bodySize;
 
-            if (distance < 0.02f && hit2High.collider.tag == "Wall")
+            if (distance < 0.04f)
             {
                 _onWallLeft = true;
             }
@@ -268,13 +273,10 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            _rb.gravityScale = 7;
+            _rb.gravityScale = 7f;
         }
         #endregion
-    }
 
-    private void FixedUpdate()
-    {
         float moveHor = Input.GetAxis("Horizontal");
 
         if (_invertedControls)
