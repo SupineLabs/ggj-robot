@@ -12,6 +12,14 @@ public class TriggerNextLevel : MonoBehaviour
 
     public TilemapCollider2D nextFloorCollider;
 
+    public GameObject interactables;
+    public Transform[] interactablesChildren;
+
+    private void Start()
+    {
+        interactablesChildren = interactables.GetComponentsInChildren<Transform>();    
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -22,6 +30,24 @@ public class TriggerNextLevel : MonoBehaviour
             currentLevel.SetActive(false);
             AudioManager.Instance.Play("Teleport");
             collision.gameObject.transform.position = nextLevelPlayerPos.transform.position;
+
+
+            foreach (Transform go in interactablesChildren)
+            {
+                GameObject transformObject = go.gameObject;
+                if (transformObject.GetComponent<BoxCollider2D>() != null)
+                {
+                    Debug.Log(transformObject);
+                    if (!transformObject.GetComponent<BoxCollider2D>().enabled)
+                    {
+                        transformObject.GetComponent<BoxCollider2D>().enabled = true;
+                        if (transformObject.GetComponentInChildren<PolygonCollider2D>() != null)
+                        {
+                            transformObject.GetComponentInChildren<PolygonCollider2D>().enabled = true;
+                        }
+                    }
+                }
+            }
 
             Invoke("Reset", 3f);
         }
