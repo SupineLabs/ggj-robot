@@ -29,6 +29,7 @@ public class PickupUpgrade : MonoBehaviour
 
     public void ApplyAllUpgrades(GameObject player)
     {
+        AudioManager.Instance.Play("Repair");
         foreach (UpgradeItem upgrade in upgrades)
         {
             FadeOut.Raise();
