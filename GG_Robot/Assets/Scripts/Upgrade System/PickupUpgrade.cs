@@ -32,6 +32,7 @@ public class PickupUpgrade : MonoBehaviour
             _playerPref = GameManager.Instance.PlayerPrefabs[2];
         }
         if (UpgradeTyres)
+        if (FixesTyres)
         {
             upgrades.Add(new TyreFix());
             _playerPref = GameManager.Instance.PlayerPrefabs[0];
