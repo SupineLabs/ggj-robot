@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        AudioManager.Instance.Play("Music");
+        AudioManager.Instance.Play("Engine");
+    }
+
     public void ResetPlayer()
     {
         FadeOut.Raise();
