@@ -8,14 +8,16 @@ public class PickupUpgrade : MonoBehaviour
     // Use checkmarks to choose what it does
 
     public bool Usable = true;
-    public bool UpgradesLegs = false;
     public bool FixesTyres = false;
     public bool FixesEyes = false;
+    public bool FixesLegs = false;
+    public bool UpgradesLegs = false;
     public GameEvent FadeOut;
     public Transform spawnTransform;
 
     public ArrayList upgrades = new ArrayList();
 
+    private bool changePrefab;
     private GameObject _playerPref;
 
     public PickupUpgrade()
@@ -25,6 +27,7 @@ public class PickupUpgrade : MonoBehaviour
 
     private void Start()
     {
+        GameObject old = _playerPref;
 
         if (UpgradesLegs)
         {
@@ -41,16 +44,24 @@ public class PickupUpgrade : MonoBehaviour
             upgrades.Add(new EyesFixed());
             _playerPref = GameManager.Instance.PlayerPrefabs[1];
         }
+        if (FixesLegs)
+        {
+            // check for legs
+            upgrades.Add(new LegsFixed());
+            _playerPref = GameManager.Instance.PlayerPrefabs[2];
+        }
+
+        changePrefab = (old != _playerPref);
     }
 
     public void ApplyAllUpgrades(GameObject player)
     {
+        if(FixesLegs && !player.GetComponent<Movement>().CanDoubleJump) { return; }
         if (!this.Usable) return;
 
         AudioManager.Instance.Play("Repair");
         foreach (UpgradeItem upgrade in upgrades)
         {
-            FadeOut.Raise();
             if (FixesEyes)
             {
                 StartCoroutine(Eyes(player));
@@ -79,13 +90,25 @@ public class PickupUpgrade : MonoBehaviour
 
     public IEnumerator Delay(GameObject player)
     {
+        FadeOut.Raise();
         yield return new WaitForSeconds(2f);
 
         Destroy(player);
         
         GameObject newPlayer = Instantiate(_playerPref, spawnTransform.position, Quaternion.identity);
         Camera.main.GetComponent<Follow>().target = newPlayer.transform;
-        Movement.Instance.InvertedControls = false;
+
+        if (FixesEyes || FixesLegs || FixesTyres) {
+            Movement.Instance.InvertedControls = false;
+        } else {
+            Movement.Instance.InvertedControls = true;
+        }
+
+        if (UpgradesLegs)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+
         this.Usable = false;
         StopCoroutine("Delay");
     }
