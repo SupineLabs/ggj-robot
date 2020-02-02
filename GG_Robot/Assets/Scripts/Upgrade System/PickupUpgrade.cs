@@ -107,7 +107,7 @@ public class PickupUpgrade : MonoBehaviour
         GameObject newPlayer = Instantiate(_playerPref, spawnTransform.position, Quaternion.identity);
         Camera.main.GetComponent<Follow>().target = newPlayer.transform;
 
-        if (FixesEyes || FixesLegs || FixesTyres) {
+        if (FixesEyes || FixesLegs || FixesTyres || AddsSprings) {
             Movement.Instance.InvertedControls = false;
         } else {
             Movement.Instance.InvertedControls = true;

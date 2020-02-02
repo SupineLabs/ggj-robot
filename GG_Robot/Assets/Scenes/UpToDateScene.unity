@@ -9720,6 +9720,7 @@ MonoBehaviour:
   FixesEyes: 0
   FixesLegs: 0
   UpgradesLegs: 0
+  AddsSprings: 1
   FadeOut: {fileID: 11400000, guid: bd41cd5311966f945b3e565a64f7deb7, type: 2}
   spawnTransform: {fileID: 78659978}
 --- !u!212 &359812377
@@ -14451,6 +14452,7 @@ MonoBehaviour:
   FixesEyes: 1
   FixesLegs: 0
   UpgradesLegs: 0
+  AddsSprings: 0
   FadeOut: {fileID: 11400000, guid: bd41cd5311966f945b3e565a64f7deb7, type: 2}
   spawnTransform: {fileID: 417435742}
 --- !u!212 &436604223
@@ -19076,6 +19078,7 @@ MonoBehaviour:
   FixesEyes: 0
   FixesLegs: 1
   UpgradesLegs: 0
+  AddsSprings: 0
   FadeOut: {fileID: 11400000, guid: bd41cd5311966f945b3e565a64f7deb7, type: 2}
   spawnTransform: {fileID: 34910220}
 --- !u!212 &581607552
@@ -19508,7 +19511,7 @@ PrefabInstance:
     - target: {fileID: 1470741309477558999, guid: 72f9eeb4e94cef7439175ea0403f7c4b,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7544522892032861520, guid: 72f9eeb4e94cef7439175ea0403f7c4b,
         type: 3}
@@ -29340,6 +29343,7 @@ MonoBehaviour:
   FixesEyes: 0
   FixesLegs: 0
   UpgradesLegs: 0
+  AddsSprings: 0
   FadeOut: {fileID: 11400000, guid: bd41cd5311966f945b3e565a64f7deb7, type: 2}
   spawnTransform: {fileID: 479191495}
 --- !u!212 &1265349142
@@ -38088,6 +38092,7 @@ MonoBehaviour:
   FixesEyes: 0
   FixesLegs: 0
   UpgradesLegs: 1
+  AddsSprings: 0
   FadeOut: {fileID: 11400000, guid: bd41cd5311966f945b3e565a64f7deb7, type: 2}
   spawnTransform: {fileID: 1428958096}
 --- !u!1001 &1454442854
@@ -38370,6 +38375,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6117609528833041093, guid: 3a8ef885c09d6b7478f486bab79d0356,
         type: 3}
+      propertyPath: _playerPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6117609528833041093, guid: 3a8ef885c09d6b7478f486bab79d0356,
+        type: 3}
       propertyPath: _spawnLocation.y
       value: 2
       objectReference: {fileID: 0}
@@ -38389,6 +38399,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: bd41cd5311966f945b3e565a64f7deb7,
         type: 2}
+    - target: {fileID: 6117609528833041093, guid: 3a8ef885c09d6b7478f486bab79d0356,
+        type: 3}
+      propertyPath: _playerPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 7604946014989120062, guid: d166e2e8c2fe2c54e89f984adcb82c2a,
+        type: 3}
     - target: {fileID: 6117609528833041099, guid: 3a8ef885c09d6b7478f486bab79d0356,
         type: 3}
       propertyPath: m_Name
@@ -42930,15 +42946,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2034093518}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7f00c844cf650046b6a91bd36d3eba6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9fe36461a1c269245bc4358e08e923c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelPlayerPos: {fileID: 0}
-  player: {fileID: 1413439700}
-  currentLevel: {fileID: 1139575365}
-  nextFloorCollider: {fileID: 0}
-  interactables: {fileID: 0}
-  interactablesChildren: []
+  player: {fileID: 0}
+  isUpgrade: 0
+  isPickedUp: 0
+  isUsed: 0
+  speed: 0.1
 --- !u!212 &2034093521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -42999,7 +43014,7 @@ BoxCollider2D:
   m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}

@@ -29,12 +29,22 @@ PrefabInstance:
     - target: {fileID: 1047716235578923171, guid: a66934c011ce2f84281afc4792f672ff,
         type: 3}
       propertyPath: m_Name
-      value: Player 4 - springy Variant
+      value: Player 4 - springy Variant Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1047716235578923182, guid: a66934c011ce2f84281afc4792f672ff,
         type: 3}
       propertyPath: _maxJumpPower
       value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047716235578923182, guid: a66934c011ce2f84281afc4792f672ff,
+        type: 3}
+      propertyPath: _canWallJump
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1047716235578923182, guid: a66934c011ce2f84281afc4792f672ff,
+        type: 3}
+      propertyPath: _canMove
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1047716235578923183, guid: a66934c011ce2f84281afc4792f672ff,
         type: 3}

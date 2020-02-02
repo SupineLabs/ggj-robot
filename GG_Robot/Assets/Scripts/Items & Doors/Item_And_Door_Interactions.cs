@@ -36,6 +36,7 @@ public class Item_And_Door_Interactions : MonoBehaviour
         if (item == null && col.GetComponent<Item>() != null)
         {
             item = col.GetComponent<Item>();
+            item.player = this.gameObject;
             item.isPickedUp = true;
 
             if (item.isUpgrade)
