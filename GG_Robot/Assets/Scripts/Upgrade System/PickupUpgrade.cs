@@ -15,6 +15,8 @@ public class PickupUpgrade : MonoBehaviour
 
     public ArrayList upgrades = new ArrayList();
 
+    private GameObject _playerPref;
+
     public PickupUpgrade()
     {
         //if (UpgradesLegs) upgrades.Add(new LegsUpgrade());
@@ -23,9 +25,21 @@ public class PickupUpgrade : MonoBehaviour
     private void Start()
     {
 
-        if (UpgradesLegs) upgrades.Add(new LegsUpgrade());
-        if (UpgradeTyres) upgrades.Add(new TyreFix());
-        if (FixesEyes) upgrades.Add(new EyesFixed());
+        if (UpgradesLegs)
+        {
+            upgrades.Add(new LegsUpgrade());
+            _playerPref = GameManager.Instance.PlayerPrefabs[2];
+        }
+        if (UpgradeTyres)
+        {
+            upgrades.Add(new TyreFix());
+            _playerPref = GameManager.Instance.PlayerPrefabs[0];
+        }
+        if (FixesEyes)
+        {
+            upgrades.Add(new EyesFixed());
+            _playerPref = GameManager.Instance.PlayerPrefabs[1];
+        }
     }
 
     public void ApplyAllUpgrades(GameObject player)
@@ -41,7 +55,7 @@ public class PickupUpgrade : MonoBehaviour
                 StartCoroutine(Eyes(player));
             }
             upgrade.ApplyAlterations(player);
-            StartCoroutine(Delay());
+            StartCoroutine(Delay(player));
         }
     }
     public void RevertAllUpgrades(GameObject player)
@@ -62,9 +76,13 @@ public class PickupUpgrade : MonoBehaviour
         StopCoroutine("Eyes");
     }
 
-    public IEnumerator Delay()
+    public IEnumerator Delay(GameObject player)
     {
         yield return new WaitForSeconds(2f);
+        Vector3 oldTrasform = player.transform.position;
+        Destroy(player);
+        GameObject newPlayer = Instantiate(_playerPref, oldTrasform, Quaternion.identity);
+        Camera.main.GetComponent<Follow>().target = newPlayer.transform;
         this.Usable = false;
         StopCoroutine("Delay");
     }

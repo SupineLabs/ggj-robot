@@ -14,9 +14,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Vector3 _spawnLocation;
 
+    [SerializeField]
+    private GameObject[] _playerPrefabs;
+
     public static GameManager Instance { get => _instance; set => _instance = value; }
     public Vector3 SpawnLocation { get => _spawnLocation; set => _spawnLocation = value; }
     public GameObject ActiveCheckpoint { get => _activeCheckpoint; set => _activeCheckpoint = value; }
+    public GameObject[] PlayerPrefabs { get => _playerPrefabs; set => _playerPrefabs = value; }
 
     private void Awake()
     {
