@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/UpToDateScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 6d0716c2d568bab4f904f52714164533
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 44812ab98dc68064fbb40bb7c78249c3
   m_configObjects: {}
