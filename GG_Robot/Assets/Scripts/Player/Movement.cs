@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    private static Movement _instance;
+
+    [SerializeField]
+    private bool _canMove;
     [SerializeField, Range(0,5)]
     private float _acceleration;
     [SerializeField]
@@ -43,8 +47,25 @@ public class Movement : MonoBehaviour
     private bool _wallJump;
 
     public bool InvertedControls { get => _invertedControls; set => _invertedControls = value; }
+    public static Movement Instance { get => _instance; set => _instance = value; }
+    public bool CanDoubleJump { get => _canDoubleJump; set => _canDoubleJump = value; }
+    public bool CanWallJump { get => _canWallJump; set => _canWallJump = value; }
+    public bool CanMove { get => _canMove; set => _canMove = value; }
 
     public LayerMask nonItemLayers;
+
+    private void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(_instance.gameObject);
+            _instance = this;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -57,45 +78,72 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (_canMove)
         {
-            if (!_onWall)
+            if (Input.GetKeyDown(KeyCode.Space))
             {
-                if (!_canDoubleJump)
+                if (!_onWall)
                 {
-                    if (_canJump && _grounded)
+                    if (!_canDoubleJump)
                     {
-                        _playerAnimations.SetBool("Jump", true);
-                        _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
+                        if (_canJump && _grounded)
+                        {
+                            _playerAnimations.SetBool("Jump", true);
+                            _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
+                        }
+                        else
+                        {
+                            _playerAnimations.SetBool("Jump", false);
+                        }
                     }
                     else
                     {
-                        _playerAnimations.SetBool("Jump", false);
+                        if ((_canJump && _grounded) || (_canJump && !_doubleJumpUsed))
+                        {
+                            if (!_grounded)
+                            {
+                                _doubleJumpUsed = true;
+                            }
+                            if (_doubleJumpUsed)
+                            {
+                                _playerAnimations.SetBool("DoubleJump", true);
+                            }
+                            else
+                            {
+                                _playerAnimations.SetBool("Jump", true);
+                            }
+                            _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
+
+                        }
+                        else
+                        {
+                            _playerAnimations.SetBool("DoubleJump", false);
+                            _playerAnimations.SetBool("Jump", false);
+                        }
                     }
                 }
                 else
                 {
-                    if ((_canJump && _grounded) || (_canJump && !_doubleJumpUsed))
+                    _playerAnimations.SetBool("DoubleJump", false);
+                    _playerAnimations.SetBool("Jump", false);
+                    if (_canWallJump)
                     {
-                        if (!_grounded)
+                        if (_onWallRight)
                         {
-                            _doubleJumpUsed = true;
-                        }
-                        if (_doubleJumpUsed)
-                        {
-                            _playerAnimations.SetBool("DoubleJump", true);
+                            _playerAnimations.SetBool("WallJump", true);
+                            _rb.AddForce(new Vector2(0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
+                            _onWall = false;
                         }
                         else
                         {
-                            _playerAnimations.SetBool("Jump", true);
+                            _playerAnimations.SetBool("WallJump", true);
+                            _rb.AddForce(new Vector2(-0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
+                            _onWall = false;
                         }
-                        _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
-
                     }
                     else
                     {
-                        _playerAnimations.SetBool("DoubleJump", false);
-                        _playerAnimations.SetBool("Jump", false);
+                        _playerAnimations.SetBool("WallJump", false);
                     }
                 }
             }
@@ -103,228 +151,207 @@ public class Movement : MonoBehaviour
             {
                 _playerAnimations.SetBool("DoubleJump", false);
                 _playerAnimations.SetBool("Jump", false);
-                if (_canWallJump)
-                {
-                    if (_onWallRight)
-                    {
-                        _playerAnimations.SetBool("WallJump", true);
-                        _rb.AddForce(new Vector2(0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
-                        _onWall = false;
-                    }
-                    else
-                    {
-                        _playerAnimations.SetBool("WallJump", true);
-                        _rb.AddForce(new Vector2(-0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
-                        _onWall = false;
-                    }
-                }
-                else
-                {
-                    _playerAnimations.SetBool("WallJump", false);
-                }
+                _playerAnimations.SetBool("WallJump", false);
             }
-        }
-        else
-        {
-            _playerAnimations.SetBool("DoubleJump", false);
-            _playerAnimations.SetBool("Jump", false);
-            _playerAnimations.SetBool("WallJump", false);
-        }
 
-        if (!_grounded)
-        {
-            _playerAnimations.SetBool("Jump", true);
-        }
-        else
-        {
-            _playerAnimations.SetBool("Jump", false);
+            if (!_grounded)
+            {
+                _playerAnimations.SetBool("Jump", true);
+            }
+            else
+            {
+                _playerAnimations.SetBool("Jump", false);
+            }
         }
     }
 
     private void FixedUpdate()
     {
-        #region Ground Check
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), -Vector2.up, 5, nonItemLayers);
-        RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.up, 5, nonItemLayers);
-
-        if (hit.collider != null)
+        if (_canMove)
         {
-            float distance = Mathf.Abs(hit.point.y - transform.position.y) - _bodySize;
+            #region Ground Check
+            RaycastHit2D hit = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), -Vector2.up, 5, nonItemLayers);
+            RaycastHit2D hit2 = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.up, 5, nonItemLayers);
 
-            if (distance < 0.1f && hit.collider.tag == "Ground")
+            if (hit.collider != null)
             {
-                _groundedRight = true;
+                float distance = Mathf.Abs(hit.point.y - transform.position.y) - _bodySize;
+
+                if (distance < 0.1f && hit.collider.tag == "Ground")
+                {
+                    _groundedRight = true;
+                }
+                else
+                {
+                    _groundedRight = false;
+                }
             }
             else
             {
                 _groundedRight = false;
             }
-        }
-        else
-        {
-            _groundedRight = false;
-        }
-        if (hit2.collider != null)
-        {
-            float distance = Mathf.Abs(hit2.point.y - transform.position.y) - _bodySize;
-
-            if (distance < 0.1f && hit2.collider.tag == "Ground")
+            if (hit2.collider != null)
             {
-                _groundedLeft = true;
+                float distance = Mathf.Abs(hit2.point.y - transform.position.y) - _bodySize;
+
+                if (distance < 0.1f && hit2.collider.tag == "Ground")
+                {
+                    _groundedLeft = true;
+                }
+                else
+                {
+                    _groundedLeft = false;
+                }
             }
             else
             {
                 _groundedLeft = false;
             }
-        }
-        else
-        {
-            _groundedLeft = false;
-        }
 
-        if (_groundedLeft || _groundedRight)
-        {
-            _grounded = true;
-        }
-        else
-        {
-            _grounded = false;
-        }
-        #endregion
-
-        #region Wall Check
-        hit = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.right, 5, nonItemLayers);
-        RaycastHit2D hitHigh = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, _bodySize, 0), -Vector2.right, 5, nonItemLayers);
-
-
-        hit2 = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), Vector2.right, 5, nonItemLayers);
-        RaycastHit2D hit2High = Physics2D.Raycast(transform.position + new Vector3(_bodySize, _bodySize, 0), Vector2.right, 5, nonItemLayers);
-
-        if (hit.collider != null)
-        {
-            float distance = Mathf.Abs(hit.point.x - transform.position.x) - _bodySize;
-
-            if (distance < 0.02f)
+            if (_groundedLeft || _groundedRight)
             {
-                _onWallRight = true;
+                _grounded = true;
             }
             else
             {
-                _onWallRight = false;
+                _grounded = false;
             }
-        }
-        else if (hitHigh.collider != null)
-        {
-            float distance = Mathf.Abs(hitHigh.point.x - transform.position.x) - _bodySize;
+            #endregion
 
-            if (distance < 0.02f)
+            #region Wall Check
+            hit = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, -_bodySize, 0), -Vector2.right, 5, nonItemLayers);
+            RaycastHit2D hitHigh = Physics2D.Raycast(transform.position + new Vector3(-_bodySize, _bodySize, 0), -Vector2.right, 5, nonItemLayers);
+
+
+            hit2 = Physics2D.Raycast(transform.position + new Vector3(_bodySize, -_bodySize, 0), Vector2.right, 5, nonItemLayers);
+            RaycastHit2D hit2High = Physics2D.Raycast(transform.position + new Vector3(_bodySize, _bodySize, 0), Vector2.right, 5, nonItemLayers);
+
+            if (hit.collider != null)
             {
-                _onWallRight = true;
-            }
-            else
-            {
-                _onWallRight = false;
-            }
-        }
-        else
-        {
-            _onWallRight = false;
-        }
+                float distance = Mathf.Abs(hit.point.x - transform.position.x) - _bodySize;
 
-        if (hit2.collider != null)
-        {
-            float distance = Mathf.Abs(hit2.point.x - transform.position.x) - _bodySize;
-
-            if (distance < 0.02f)
-            {
-                _onWallLeft = true;
-            }
-            else
-            {
-                _onWallLeft = false;
-            }
-        }
-        if (hit2High.collider != null)
-        {
-            float distance = Mathf.Abs(hit2High.point.x - transform.position.x) - _bodySize;
-
-            if (distance < 0.02f)
-            {
-                _onWallLeft = true;
-            }
-            else
-            {
-                _onWallLeft = false;
-            }
-        }
-        else
-        {
-            _onWallLeft = false;
-        }
-
-        if ((_onWallLeft || _onWallRight) && !_grounded)
-        {
-            _onWall = true;
-            _doubleJumpUsed = true;
-        }
-        else
-        {
-            _onWall = false;
-        }
-
-        if (_onWall && _rb.velocity.y < 0)
-        {
-            _rb.gravityScale = 1f;
-        }
-        else
-        {
-            _rb.gravityScale = 7f;
-        }
-        #endregion
-        
-        if (_grounded && !_onWall)
-        {
-            _doubleJumpUsed = false;
-        }
-
-        float moveHor = Input.GetAxis("Horizontal");
-
-        if (_invertedControls)
-        {
-            moveHor = -moveHor;
-        }
-
-        if (moveHor < 0)
-        {
-            _playerSprite.flipX = true;
-        }
-        else
-        {
-            _playerSprite.flipX = false;
-        }
-
-        if ((_rb.velocity.x < _maxSpeed && _rb.velocity.x > -_maxSpeed))
-        {
-            if (((_onWallRight && moveHor > 0) || (_onWallLeft && moveHor < 0) || !_onWall))
-            {
-                _rb.AddForce(Vector2.right * moveHor * _acceleration, ForceMode2D.Impulse);
-                if(moveHor > 0.01f || moveHor < -0.01f)
+                if (distance < 0.02f)
                 {
-                    _playerAnimations.SetBool("Walking", true);
+                    _onWallRight = true;
+                }
+                else
+                {
+                    _onWallRight = false;
+                }
+            }
+            else if (hitHigh.collider != null)
+            {
+                float distance = Mathf.Abs(hitHigh.point.x - transform.position.x) - _bodySize;
+
+                if (distance < 0.02f)
+                {
+                    _onWallRight = true;
+                }
+                else
+                {
+                    _onWallRight = false;
+                }
+            }
+            else
+            {
+                _onWallRight = false;
+            }
+
+            if (hit2.collider != null)
+            {
+                float distance = Mathf.Abs(hit2.point.x - transform.position.x) - _bodySize;
+
+                if (distance < 0.02f)
+                {
+                    _onWallLeft = true;
+                }
+                else
+                {
+                    _onWallLeft = false;
+                }
+            }
+            if (hit2High.collider != null)
+            {
+                float distance = Mathf.Abs(hit2High.point.x - transform.position.x) - _bodySize;
+
+                if (distance < 0.02f)
+                {
+                    _onWallLeft = true;
+                }
+                else
+                {
+                    _onWallLeft = false;
+                }
+            }
+            else
+            {
+                _onWallLeft = false;
+            }
+
+            if ((_onWallLeft || _onWallRight) && !_grounded)
+            {
+                _onWall = true;
+                _doubleJumpUsed = true;
+            }
+            else
+            {
+                _onWall = false;
+            }
+
+            if (_onWall && _rb.velocity.y < 0)
+            {
+                _rb.gravityScale = 1f;
+            }
+            else
+            {
+                _rb.gravityScale = 7f;
+            }
+            #endregion
+
+            if (_grounded && !_onWall)
+            {
+                _doubleJumpUsed = false;
+            }
+
+            float moveHor = Input.GetAxis("Horizontal");
+
+            if (_invertedControls)
+            {
+                moveHor = -moveHor;
+            }
+
+            if (moveHor < 0)
+            {
+                _playerSprite.flipX = true;
+            }
+            else
+            {
+                _playerSprite.flipX = false;
+            }
+
+            if ((_rb.velocity.x < _maxSpeed && _rb.velocity.x > -_maxSpeed))
+            {
+                if (((_onWallRight && moveHor > 0) || (_onWallLeft && moveHor < 0) || !_onWall))
+                {
+                    _rb.AddForce(Vector2.right * moveHor * _acceleration, ForceMode2D.Impulse);
+                    if (moveHor > 0.01f || moveHor < -0.01f)
+                    {
+                        _playerAnimations.SetBool("Walking", true);
+                    }
+                    else
+                    {
+                        _playerAnimations.SetBool("Walking", false);
+                    }
                 }
                 else
                 {
                     _playerAnimations.SetBool("Walking", false);
                 }
             }
-            else
+            if (moveHor <= 0.01f && moveHor >= -0.01f && (_rb.velocity.x > 0.4f || _rb.velocity.x < 0.4f))
             {
-                _playerAnimations.SetBool("Walking", false);
+                _rb.AddForce(-new Vector2(_rb.velocity.x, 0) * _breakPower);
             }
-        }
-        if (moveHor <= 0.01f && moveHor >= -0.01f && (_rb.velocity.x > 0.4f || _rb.velocity.x < 0.4f))
-        {
-            _rb.AddForce(-new Vector2(_rb.velocity.x, 0) * _breakPower);
         }
     }
 }

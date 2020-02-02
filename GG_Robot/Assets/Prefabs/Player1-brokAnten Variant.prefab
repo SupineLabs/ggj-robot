@@ -35,6 +35,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4955900033351102845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7544522892032861520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1be87273c377dd94ca721ae1d63c5289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4628606673009089899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,9 +54,43 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 68148942, guid: 03395409b885ece4ab9ba0a458d5a442, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 68148942, guid: 03395409b885ece4ab9ba0a458d5a442, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 68148942, guid: 03395409b885ece4ab9ba0a458d5a442, type: 3}
+      propertyPath: m_Offset.x
+      value: 0.02220288
+      objectReference: {fileID: 0}
+    - target: {fileID: 68148942, guid: 03395409b885ece4ab9ba0a458d5a442, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.16421549
+      objectReference: {fileID: 0}
+    - target: {fileID: 68148942, guid: 03395409b885ece4ab9ba0a458d5a442, type: 3}
+      propertyPath: m_Size.x
+      value: 1.5517976
+      objectReference: {fileID: 0}
+    - target: {fileID: 68148942, guid: 03395409b885ece4ab9ba0a458d5a442, type: 3}
+      propertyPath: m_Size.y
+      value: 1.5517976
+      objectReference: {fileID: 0}
     - target: {fileID: 1415944105, guid: 03395409b885ece4ab9ba0a458d5a442, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 944266456596307482, guid: 03395409b885ece4ab9ba0a458d5a442,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -103684649
+      objectReference: {fileID: 0}
+    - target: {fileID: 944266456596307482, guid: 03395409b885ece4ab9ba0a458d5a442,
+        type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2922724729110296630, guid: 03395409b885ece4ab9ba0a458d5a442,
         type: 3}
@@ -61,15 +107,20 @@ PrefabInstance:
       propertyPath: _canWallJump
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2922724729110296630, guid: 03395409b885ece4ab9ba0a458d5a442,
+        type: 3}
+      propertyPath: _invertedControls
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2922724729110296631, guid: 03395409b885ece4ab9ba0a458d5a442,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.67
+      value: 84.87
       objectReference: {fileID: 0}
     - target: {fileID: 2922724729110296631, guid: 03395409b885ece4ab9ba0a458d5a442,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.55
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 2922724729110296631, guid: 03395409b885ece4ab9ba0a458d5a442,
         type: 3}
@@ -200,6 +251,16 @@ PrefabInstance:
     - target: {fileID: 2922724729110296635, guid: 03395409b885ece4ab9ba0a458d5a442,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791464006159327958, guid: 03395409b885ece4ab9ba0a458d5a442,
+        type: 3}
+      propertyPath: m_SortingLayerID
+      value: -103684649
+      objectReference: {fileID: 0}
+    - target: {fileID: 4791464006159327958, guid: 03395409b885ece4ab9ba0a458d5a442,
+        type: 3}
+      propertyPath: m_SortingLayer
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
