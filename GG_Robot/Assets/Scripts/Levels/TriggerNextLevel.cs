@@ -14,14 +14,14 @@ public class TriggerNextLevel : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject == player)
+        if (collision.gameObject.tag == "Player")
         {
             Follow._smoothing = 2f;
 
             nextFloorCollider.enabled = true;
             currentLevel.SetActive(false);
             AudioManager.Instance.Play("Teleport");
-            player.transform.position = nextLevelPlayerPos.transform.position;
+            collision.gameObject.transform.position = nextLevelPlayerPos.transform.position;
 
             Invoke("Reset", 3f);
         }
