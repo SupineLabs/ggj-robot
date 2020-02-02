@@ -80,7 +80,7 @@ public class Movement : MonoBehaviour
     {
         if (_canMove)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)) // space, up or W
             {
                 if (!_onWall)
                 {
