@@ -14,7 +14,7 @@ public class FadeInAndOut : MonoBehaviour
 
     private void Update()
     {
-        transform.position = Movement.Instance.gameObject.transform.position;
+        if(Movement.Instance != null) transform.position = Movement.Instance.gameObject.transform.position;
     }
 
     public void FadeOut()
@@ -31,6 +31,6 @@ public class FadeInAndOut : MonoBehaviour
 
     public void FinishedAnim()
     {
-        Movement.Instance.CanMove = true;
+        if (Movement.Instance != null) Movement.Instance.CanMove = true;
     }
 }
