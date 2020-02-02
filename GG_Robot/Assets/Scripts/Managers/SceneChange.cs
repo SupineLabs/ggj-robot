@@ -9,4 +9,12 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene("UpToDateScene");
     }
+    public void winGame()
+    {
+        SceneManager.LoadScene("Win");
+    }
+    public void loadMenu()
+    {
+        SceneManager.LoadScene("Menu");
+    }
 }
