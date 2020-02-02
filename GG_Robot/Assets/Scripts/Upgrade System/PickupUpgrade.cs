@@ -12,6 +12,7 @@ public class PickupUpgrade : MonoBehaviour
     public bool FixesEyes = false;
     public bool FixesLegs = false;
     public bool UpgradesLegs = false;
+    public bool AddsSprings = false;
     public GameEvent FadeOut;
     public Transform spawnTransform;
 
@@ -51,12 +52,20 @@ public class PickupUpgrade : MonoBehaviour
             _playerPref = GameManager.Instance.PlayerPrefabs[2];
         }
 
+        if (AddsSprings)
+        {
+            upgrades.Add(new EmptyUpgrade());
+            _playerPref = GameManager.Instance.PlayerPrefabs[3];
+        }
+
         changePrefab = (old != _playerPref);
     }
 
     public void ApplyAllUpgrades(GameObject player)
     {
         if(FixesLegs && !player.GetComponent<Movement>().CanDoubleJump) { return; }
+        if(AddsSprings && !player.GetComponent<Item_And_Door_Interactions>().hasItem) { return; }
+
         if (!this.Usable) return;
 
         AudioManager.Instance.Play("Repair");
@@ -107,6 +116,11 @@ public class PickupUpgrade : MonoBehaviour
         if (UpgradesLegs)
         {
             this.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+
+        if (player.GetComponent<Item_And_Door_Interactions>() && player.GetComponent<Item_And_Door_Interactions>().hasItem)
+        {
+            Destroy(player.GetComponent<Item_And_Door_Interactions>().item.gameObject);
         }
 
         this.Usable = false;

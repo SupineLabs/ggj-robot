@@ -28,6 +28,8 @@ public class Item_And_Door_Interactions : MonoBehaviour
         }
     }
 
+    public bool hasItem { get => item != null; }
+
     void OnTriggerEnter2D(Collider2D col)
     {
         // Picking up an item.
