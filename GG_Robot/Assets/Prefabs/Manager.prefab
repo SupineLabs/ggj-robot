@@ -44,7 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ca9df07cf4e20c4691ba8f9bbc75eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  FadeOut: {fileID: 0}
+  _activeCheckpoint: {fileID: 0}
   _spawnLocation: {x: 0, y: 0, z: 0}
+  _playerPrefabs:
+  - {fileID: 7544522892032861520, guid: 72f9eeb4e94cef7439175ea0403f7c4b, type: 3}
+  - {fileID: 8848134561129668393, guid: ac4b78af31beb1e4d85b4ad5ed11c3d4, type: 3}
+  - {fileID: 1047716235578923171, guid: a66934c011ce2f84281afc4792f672ff, type: 3}
 --- !u!114 &6117609528833041094
 MonoBehaviour:
   m_ObjectHideFlags: 0
