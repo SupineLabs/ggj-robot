@@ -17,6 +17,8 @@ public class Movement : MonoBehaviour
     [SerializeField, Range(5, 10)]
     private float _jumpPower;
     [SerializeField]
+    private float _maxJumpPower;
+    [SerializeField]
     private bool _grounded = false;
     private bool _groundedRight = false;
     private bool _groundedLeft = false;
@@ -86,7 +88,7 @@ public class Movement : MonoBehaviour
                 {
                     if (!_canDoubleJump)
                     {
-                        if (_canJump && _grounded)
+                        if (_canJump && _grounded && _rb.velocity.y < 0.1f)
                         {
                             _playerAnimations.SetBool("Jump", true);
                             AudioManager.Instance.Play("Jump");
@@ -116,6 +118,8 @@ public class Movement : MonoBehaviour
 
                             AudioManager.Instance.Play("Jump");
                             _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
+                            float yValue = Mathf.Clamp(_rb.velocity.y, 0, _maxJumpPower);
+                            _rb.velocity = new Vector2(_rb.velocity.x, yValue);
 
                         }
                         else
@@ -129,7 +133,7 @@ public class Movement : MonoBehaviour
                 {
                     _playerAnimations.SetBool("DoubleJump", false);
                     _playerAnimations.SetBool("Jump", false);
-                    if (_canWallJump)
+                    if (_canWallJump && _rb.velocity.y < 0.1f)
                     {
                         if (_onWallRight)
                         {
@@ -217,7 +221,13 @@ public class Movement : MonoBehaviour
             {
                 if (!_grounded)
                 {
-                    AudioManager.Instance.Play("Land");
+                    if (!AudioManager.Instance.IsPlaying("Land"))
+                    {
+                        AudioManager.Instance.Play("Land");
+                    } else if (!(AudioManager.Instance.Time("Land") < 0.5f))
+                    {
+                        AudioManager.Instance.Play("Land");
+                    }
                 }
                 _grounded = true;
             }
