@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5571905619759296267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5571905619759296266}
+  - component: {fileID: 5571905619759296265}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5571905619759296266
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571905619759296267}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.9868867, y: 1.3395565, z: -185.01187}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5571905619759296265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5571905619759296267}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e96089479a12394f97ca9b4a97a1577, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fx: {fileID: 24300002, guid: 600e1d02560d12742a872d59a4ab91f4, type: 2}
+  localSounds:
+  - name: Teleport
+    clip: {fileID: 8300000, guid: 72ffd310bbdb60049998173715f4bfbc, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 3
+    loop: 0
+    source: {fileID: 0}
+  - name: Music
+    clip: {fileID: 8300000, guid: 37bb9127aa315154a89ad1280d94be66, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: Repair
+    clip: {fileID: 8300000, guid: fe48dac8d5a180f4c90928b772631049, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 2
+    loop: 0
+    source: {fileID: 0}
+  - name: Land
+    clip: {fileID: 8300000, guid: c1b109a8c84744e49af9b6bc500dcb01, type: 3}
+    volume: 0.6
+    pitch: 1
+    priority: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Jump
+    clip: {fileID: 8300000, guid: 1eeee7c776f74584f8beca339b811859, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 19
+    loop: 0
+    source: {fileID: 0}
+  - name: Footsteps
+    clip: {fileID: 8300000, guid: 451b813faea02ee478c2eaa45ff1892d, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Death
+    clip: {fileID: 8300000, guid: 7551857cec9f5e741b0ae2a78c7e1088, type: 3}
+    volume: 1
+    pitch: 1
+    priority: 10
+    loop: 0
+    source: {fileID: 0}
+  - name: Engine
+    clip: {fileID: 8300000, guid: 7345e53ffb2a3ee4486fb79c06861ac3, type: 3}
+    volume: 1
+    pitch: 0.88
+    priority: 0
+    loop: 1
+    source: {fileID: 0}

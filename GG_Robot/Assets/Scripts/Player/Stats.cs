@@ -55,6 +55,7 @@ public class Stats : MonoBehaviour
 
         if(_currHealth <= 0)
         {
+            AudioManager.Instance.Play("Death");
             _playerDeath.Raise();
         }
     }
@@ -63,6 +64,7 @@ public class Stats : MonoBehaviour
     {
         _currHealth = 0;
 
+        AudioManager.Instance.Play("Death");
         _playerDeath.Raise();
     }
 }

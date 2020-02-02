@@ -89,6 +89,7 @@ public class Movement : MonoBehaviour
                         if (_canJump && _grounded)
                         {
                             _playerAnimations.SetBool("Jump", true);
+                            AudioManager.Instance.Play("Jump");
                             _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
                         }
                         else
@@ -112,6 +113,8 @@ public class Movement : MonoBehaviour
                             {
                                 _playerAnimations.SetBool("Jump", true);
                             }
+
+                            AudioManager.Instance.Play("Jump");
                             _rb.AddForce(Vector2.up * _jumpPower * 10, ForceMode2D.Impulse);
 
                         }
@@ -131,12 +134,14 @@ public class Movement : MonoBehaviour
                         if (_onWallRight)
                         {
                             _playerAnimations.SetBool("WallJump", true);
+                            AudioManager.Instance.Play("Jump");
                             _rb.AddForce(new Vector2(0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
                             _onWall = false;
                         }
                         else
                         {
                             _playerAnimations.SetBool("WallJump", true);
+                            AudioManager.Instance.Play("Jump");
                             _rb.AddForce(new Vector2(-0.5f * (_jumpPower * 0.75f), 1 * _jumpPower) * 10, ForceMode2D.Impulse);
                             _onWall = false;
                         }
@@ -210,6 +215,10 @@ public class Movement : MonoBehaviour
 
             if (_groundedLeft || _groundedRight)
             {
+                if (!_grounded)
+                {
+                    AudioManager.Instance.Play("Land");
+                }
                 _grounded = true;
             }
             else
