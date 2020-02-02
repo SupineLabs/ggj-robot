@@ -4,11 +4,20 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+
+    public GameObject OverrideLocation;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
-            GameManager.Instance.ActiveCheckpoint = this.gameObject;
+            if (this.OverrideLocation != null)
+            {
+                GameManager.Instance.ActiveCheckpoint = this.OverrideLocation;
+            } else
+            {
+                GameManager.Instance.ActiveCheckpoint = this.gameObject;
+            }
         }
     }
 }
