@@ -32,6 +32,10 @@ public class PickupUpgrade : MonoBehaviour
         foreach (UpgradeItem upgrade in upgrades)
         {
             FadeOut.Raise();
+            if (EyesFix)
+            {
+                StartCoroutine(Eyes(player));
+            }
             upgrade.ApplyAlterations(player);            
         }
     }
@@ -42,5 +46,14 @@ public class PickupUpgrade : MonoBehaviour
             FadeOut.Raise();
             upgrade.RevertAlterations(player);
         }
+    }
+
+
+
+    public IEnumerator Eyes(GameObject player)
+    {
+        yield return new WaitForSeconds(2f);
+        player.transform.GetChild(0).gameObject.SetActive(false);
+        StopAllCoroutines();
     }
 }
