@@ -20,6 +20,7 @@ public class TriggerNextLevel : MonoBehaviour
 
             nextFloorCollider.enabled = true;
             currentLevel.SetActive(false);
+            AudioManager.Instance.Play("Teleport");
             player.transform.position = nextLevelPlayerPos.transform.position;
 
             Invoke("Reset", 3f);
