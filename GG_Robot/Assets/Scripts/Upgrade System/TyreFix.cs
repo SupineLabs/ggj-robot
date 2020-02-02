@@ -12,7 +12,7 @@ public class TyreFix : UpgradeItem
     }
     public override void RevertAlterations(GameObject player)
     {
-        Movement.Instance.CanDoubleJump = true;
+        Movement.Instance.InvertedControls = true;
         // player.movementSpeed = 1;
 
     }

@@ -9,9 +9,10 @@ public class PickupUpgrade : MonoBehaviour
 
     public bool Usable = true;
     public bool UpgradesLegs = false;
-    public bool UpgradeTyres = false;
+    public bool FixesTyres = false;
     public bool FixesEyes = false;
     public GameEvent FadeOut;
+    public Transform spawnTransform;
 
     public ArrayList upgrades = new ArrayList();
 
@@ -30,7 +31,7 @@ public class PickupUpgrade : MonoBehaviour
             upgrades.Add(new LegsUpgrade());
             _playerPref = GameManager.Instance.PlayerPrefabs[2];
         }
-        if (UpgradeTyres)
+        if (FixesTyres)
         {
             upgrades.Add(new TyreFix());
             _playerPref = GameManager.Instance.PlayerPrefabs[0];
@@ -79,10 +80,12 @@ public class PickupUpgrade : MonoBehaviour
     public IEnumerator Delay(GameObject player)
     {
         yield return new WaitForSeconds(2f);
-        Vector3 oldTrasform = player.transform.position;
+
         Destroy(player);
-        GameObject newPlayer = Instantiate(_playerPref, oldTrasform, Quaternion.identity);
+        
+        GameObject newPlayer = Instantiate(_playerPref, spawnTransform.position, Quaternion.identity);
         Camera.main.GetComponent<Follow>().target = newPlayer.transform;
+        Movement.Instance.InvertedControls = false;
         this.Usable = false;
         StopCoroutine("Delay");
     }
