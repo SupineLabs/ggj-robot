@@ -6,6 +6,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
+    public GameEvent FadeOut;
+
     [SerializeField]
     private GameObject _activeCheckpoint;
 
@@ -31,7 +33,25 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayer()
     {
+        FadeOut.Raise();
+        // stop camera following player so you can see them drop out of the world
+        Camera.main.GetComponent<Follow>().target = null;
+        StartCoroutine(Unhide());
+    }
+
+    public IEnumerator Unhide()
+    {
+        yield return new WaitForSeconds(2f);
+
+        // teleport to last checkpoint
         Stats.Instance.gameObject.transform.position = _activeCheckpoint.transform.position;
-        Camera.main.transform.position = new Vector3(_spawnLocation.x, _spawnLocation.y, -10);
+
+        // reset animation so he's sitting there when he restarts
+        Stats.Instance.gameObject.GetComponent<Animator>().SetBool("Jump", false);
+
+        // send camera to checkpoint & start following player again
+        Camera.main.transform.position = new Vector3(_activeCheckpoint.transform.position.x, _activeCheckpoint.transform.position.y, _activeCheckpoint.transform.position.z - 10);
+        Camera.main.GetComponent<Follow>().target = Stats.Instance.gameObject.transform;
+        StopAllCoroutines();
     }
 }

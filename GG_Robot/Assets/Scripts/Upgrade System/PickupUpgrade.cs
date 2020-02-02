@@ -9,7 +9,7 @@ public class PickupUpgrade : MonoBehaviour
 
     public bool UpgradesLegs = false;
     public bool UpgradeTyres = false;
-    public bool EyesFix = false;
+    public bool FixesEyes = false;
     public GameEvent FadeOut;
 
     public ArrayList upgrades = new ArrayList();
@@ -24,7 +24,7 @@ public class PickupUpgrade : MonoBehaviour
 
         if (UpgradesLegs) upgrades.Add(new LegsUpgrade());
         if (UpgradeTyres) upgrades.Add(new TyreFix());
-        if (EyesFix) upgrades.Add(new EyesFixed());
+        if (FixesEyes) upgrades.Add(new EyesFixed());
     }
 
     public void ApplyAllUpgrades(GameObject player)
@@ -32,7 +32,7 @@ public class PickupUpgrade : MonoBehaviour
         foreach (UpgradeItem upgrade in upgrades)
         {
             FadeOut.Raise();
-            if (EyesFix)
+            if (FixesEyes)
             {
                 StartCoroutine(Eyes(player));
             }
