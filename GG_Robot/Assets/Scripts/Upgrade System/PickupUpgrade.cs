@@ -7,6 +7,7 @@ public class PickupUpgrade : MonoBehaviour
     // Slap this on the sprite for an upgrade pickup
     // Use checkmarks to choose what it does
 
+    public bool Usable = true;
     public bool UpgradesLegs = false;
     public bool UpgradeTyres = false;
     public bool FixesEyes = false;
@@ -29,6 +30,8 @@ public class PickupUpgrade : MonoBehaviour
 
     public void ApplyAllUpgrades(GameObject player)
     {
+        if (!this.Usable) return;
+
         AudioManager.Instance.Play("Repair");
         foreach (UpgradeItem upgrade in upgrades)
         {
@@ -37,7 +40,8 @@ public class PickupUpgrade : MonoBehaviour
             {
                 StartCoroutine(Eyes(player));
             }
-            upgrade.ApplyAlterations(player);            
+            upgrade.ApplyAlterations(player);
+            StartCoroutine(Delay());
         }
     }
     public void RevertAllUpgrades(GameObject player)
@@ -55,6 +59,13 @@ public class PickupUpgrade : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         player.transform.GetChild(0).gameObject.SetActive(false);
-        StopAllCoroutines();
+        StopCoroutine("Eyes");
+    }
+
+    public IEnumerator Delay()
+    {
+        yield return new WaitForSeconds(2f);
+        this.Usable = false;
+        StopCoroutine("Delay");
     }
 }
